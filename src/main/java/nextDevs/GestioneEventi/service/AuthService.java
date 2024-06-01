@@ -23,13 +23,13 @@ public class AuthService {
     @Autowired
     private JwtTool jwtTool;
 
-    public String authenticateUtentiAndCreateToken(UtenteLoginDto utenteLoginDto) {
-        Optional <Utente> utenteOptional = utenteService.getUtenteByEmail(utenteLoginDto.getEmail());
-        if (utenteOptional.isEmpty()) {
+    public String authenticateUtenteAndCreateToken(UtenteLoginDto utenteLoginDto) {
+        Optional <Utente> utenteOptionalOptional = utenteService.getUtenteByEmail(utenteLoginDto.getEmail());
+        if (utenteOptionalOptional.isEmpty()) {
             throw new UnauthorizedException("Error in authorization, relogin!");
         }else{
-            Utente utente= utenteOptional.get();
-            if (utente.getPassword().equals(utenteLoginDto.getPassword())){
+            Utente utente = utenteOptionalOptional.get();
+            if (passwordEncoder.matches(utenteLoginDto.getPassword(), utente.getPassword())){
                 return jwtTool.createToken(utente);
             }else {
                 throw new UnauthorizedException("Error in authorization, relogin!");
@@ -39,8 +39,7 @@ public class AuthService {
 
     }
 
-    }
-
+}
 
 
 

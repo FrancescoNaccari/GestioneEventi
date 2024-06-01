@@ -37,7 +37,7 @@ public class UtenteService {
             utenteRepository.save(utente);
             return "Utente with id=" + utente.getId() + "correctly saved";
         }else{
-            throw new BadRequestException("Dipendente con email "+utenteDto.getEmail()+" già esistente");
+            throw new BadRequestException("Utente con email "+utenteDto.getEmail()+" già esistente");
         }
     }
 
